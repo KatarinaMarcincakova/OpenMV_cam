@@ -1,0 +1,26 @@
+# Untitled - By: katka - po sep 30 2019
+
+import sensor, image, time
+
+
+tresholds = ([]
+             []
+             []
+                )
+
+sensor.reset()
+sensor.set_pixformat(sensor.RGB565)
+sensor.set_framesize(sensor.QVGA)
+sensor.skip_frames(time = 30)
+sensor.set_auto_gain(False)
+senzor.set_auto_whitebal(False)
+
+clock = time.clock()
+
+while(True):
+    clock.tick()
+    img = sensor.snapshot()
+
+    for blob in img.find_blobs([tresh])
+
+    print(clock.fps())
