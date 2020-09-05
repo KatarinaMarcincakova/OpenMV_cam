@@ -5,10 +5,24 @@
 
 import sensor, image, time, math
 
+def printStatValues():
+    print('primary_ball_diameter: ', str(primary_ball_diameter))
+    print('primary_ball_distance: ', str(primary_ball_distance))
+    print('ball_diameter: ', str(ball_diameter))
+    print('ball_distance: ', str(ball_distance))
+    print('frame height: ', str(x0))
+    print('frame width: ', str(y0))
+
+def printChanValues():
+    print('nove x: ', str(x1), ' nove y: ', str(y1))
+    print('original x: ', blob.cx(), ' original y: ', blob.cy())
+
+
 threshold_index = 0 # 0 for red, 1 for green, 2 for blue
 
 thresholds = [(45, 60, 50, 74, 38, 61)]
 
+#sensor setup
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
@@ -17,11 +31,17 @@ sensor.set_auto_gain(False)
 sensor.set_auto_whitebal(False)
 clock = time.clock()
 
+# zakladne parametre
 x0 = sensor.width() // 2
 y0 = sensor.height()
 
-print('vyska: ', str(x0))
-print('sirka: ', str(y0))
+primary_ball_diameter = 7
+primary_ball_distance = 10
+
+ball_diameter = 0
+ball_distance = 0
+
+angle = 0
 
 while(True):
     clock.tick()
@@ -33,7 +53,5 @@ while(True):
         img.draw_cross(blob.cx(), blob.cy())
 
 #position of ball
-    print('original x: ', blob.cx(), ' original y: ', blob.cy())
     x1 = blob.cx() - x0
     y1 = y0 - blob.cy()
-    print('nove x: ', str(x1), ' nove y: ', str(y1))
