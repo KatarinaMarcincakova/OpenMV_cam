@@ -14,8 +14,9 @@ def printStatValues():
     print('frame width: ', str(y0))
 
 def printChanValues():
-    print('nove x: ', str(x1), ' nove y: ', str(y1))
     print('original x: ', blob.cx(), ' original y: ', blob.cy())
+    print('new x: ', str(x1), ' new y: ', str(y1))
+    print('angle: ', str(angle))
 
 
 threshold_index = 0 # 0 for red, 1 for green, 2 for blue
@@ -55,3 +56,9 @@ while(True):
 #position of ball
     x1 = blob.cx() - x0
     y1 = y0 - blob.cy()
+
+#vypocty
+    #angle = tg^-1(y1 ^ 2 / x1 ^ 2)
+    ball_diameter = blob.rect.w()
+    print('ball_diameter: ', str(ball_diameter))
+    ball_distance = ( ball_diameter * primary_ball_distance ) / primary_ball_diameter
