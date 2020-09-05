@@ -7,26 +7,33 @@ import sensor, image, time, math
 
 threshold_index = 0 # 0 for red, 1 for green, 2 for blue
 
-# Color Tracking Thresholds (L Min, L Max, A Min, A Max, B Min, B Max)
-# The below thresholds track in general red/green/blue things. You may wish to tune them...
-thresholds = [(45, 60, 50, 74, 38, 61)] # generic_ball_thresholds
+thresholds = [(45, 60, 50, 74, 38, 61)]
 
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
 sensor.skip_frames(time = 2000)
-sensor.set_auto_gain(False) # must be turned off for color tracking
-sensor.set_auto_whitebal(False) # must be turned off for color tracking
+sensor.set_auto_gain(False)
+sensor.set_auto_whitebal(False)
 clock = time.clock()
 
-# Only blobs that with more pixels than "pixel_threshold" and more area than "area_threshold" are
-# returned by "find_blobs" below. Change "pixels_threshold" and "area_threshold" if you change the
-# camera resolution. "merge=True" merges all overlapping blobs in the image.
+x0 = sensor.width() // 2
+y0 = sensor.height()
+
+print('vyska: ', str(x0))
+print('sirka: ', str(y0))
 
 while(True):
     clock.tick()
     img = sensor.snapshot()
+
+#finding ball
     for blob in img.find_blobs([thresholds[threshold_index]], pixels_threshold=200, area_threshold=200, merge=True):
         img.draw_rectangle(blob.rect())
         img.draw_cross(blob.cx(), blob.cy())
-    print(clock.fps())
+
+#position of ball
+    print('original x: ', blob.cx(), ' original y: ', blob.cy())
+    x1 = blob.cx() - x0
+    y1 = y0 - blob.cy()
+    print('nove x: ', str(x1), ' nove y: ', str(y1))
