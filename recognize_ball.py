@@ -4,6 +4,7 @@
 
 
 import sensor, image, time, math
+from pyb import UART
 
 def printStatValues():
     print('primary_ball_diameter: ', str(primary_ball_diameter))
@@ -22,6 +23,8 @@ def printChanValues():
 threshold_index = 0 # 0 for red, 1 for green, 2 for blue
 
 thresholds = [(43, 78, 27, 75, 14, 65)]
+
+#uart = UART(3, 9600, timeout_char=1000)  -------------------------> treba dohodnut rychlost
 
 #sensor setup
 sensor.reset()
@@ -69,3 +72,5 @@ while(True):
     ball_diameter = blob.h() // 10
     ball_distance = ( ball_diameter * primary_ball_distance ) / primary_ball_diameter
     printChanValues()
+
+    #uart.write(<untitled array / list>)    ---------------------------------> treba urobit pole s hodnotami alebo nejaky iny sposob
