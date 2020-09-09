@@ -8,20 +8,20 @@ import sensor, image, time, math
 def printStatValues():
     print('primary_ball_diameter: ', str(primary_ball_diameter))
     print('primary_ball_distance: ', str(primary_ball_distance))
-    print('ball_diameter: ', str(ball_diameter))
-    print('ball_distance: ', str(ball_distance))
     print('frame height: ', str(x0))
     print('frame width: ', str(y0))
 
 def printChanValues():
-    print('original x: ', blob.cx(), ' original y: ', blob.cy())
-    print('new x: ', str(x1), ' new y: ', str(y1))
+    #print('original x: ', blob.cx(), ' original y: ', blob.cy())
+    #print('new x: ', str(x1), ' new y: ', str(y1))
+    print('ball_diameter: ', str(ball_diameter))
+    print('ball_distance: ', str(ball_distance))
     print('angle: ', str(angle))
 
 
 threshold_index = 0 # 0 for red, 1 for green, 2 for blue
 
-thresholds = [(45, 60, 50, 74, 38, 61)]
+thresholds = [(43, 78, 27, 75, 14, 65)]
 
 #sensor setup
 sensor.reset()
@@ -32,12 +32,12 @@ sensor.set_auto_gain(False)
 sensor.set_auto_whitebal(False)
 clock = time.clock()
 
-# zakladne parametre
+#zakladne parametre
 x0 = sensor.width() // 2
 y0 = sensor.height()
 
 primary_ball_diameter = 7
-primary_ball_distance = 10
+primary_ball_distance = 18.5
 
 ball_diameter = 0
 ball_distance = 0
@@ -58,7 +58,10 @@ while(True):
     y1 = y0 - blob.cy()
 
 #vypocty
-    #angle = tg^-1(y1 ^ 2 / x1 ^ 2)
-    ball_diameter = blob.rect.w()
-    print('ball_diameter: ', str(ball_diameter))
+    if (y1 ^ 2) != 0 and (x1 ^ 2) != 0:
+        angle = math.degrees(math.atan( (y1 ^ 2) / (x1 ^ 2) ))
+    else:
+        angle = 0
+    ball_diameter = blob.h() // 10
     ball_distance = ( ball_diameter * primary_ball_distance ) / primary_ball_diameter
+    printChanValues()
