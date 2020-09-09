@@ -59,7 +59,11 @@ while(True):
 
 #vypocty
     if (y1 ^ 2) != 0 and (x1 ^ 2) != 0:
-        angle = math.degrees(math.atan( (y1 ^ 2) / (x1 ^ 2) ))
+        anP = math.degrees(math.atan( (y1 ^ 2) / (x1 ^ 2) ))
+        if anP > 0:
+            angle = 90 - anP
+        elif anP < 0:
+            angle = - 90 - anP
     else:
         angle = 0
     ball_diameter = blob.h() // 10
