@@ -41,6 +41,8 @@ y0 = sensor.height()
 
 primary_ball_diameter = 7
 primary_ball_distance = 18.5
+camera_angle = 30
+camera_height = 15
 
 ball_diameter = 0
 ball_distance = 0
@@ -69,8 +71,10 @@ while(True):
             angle = - 90 - anP
     else:
         angle = 0
+
     ball_diameter = blob.h() // 10
-    ball_distance = ( ball_diameter * primary_ball_distance ) / primary_ball_diameter
+    ball_distance = (camera_height - ball_diameter) * math.degrees(math.atan(camera_angle))
+
     printChanValues()
 
     #uart.write(<untitled array / list>)    ---------------------------------> treba urobit pole s hodnotami alebo nejaky iny sposob
