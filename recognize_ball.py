@@ -41,8 +41,8 @@ y0 = sensor.height()
 
 primary_ball_diameter = 7
 primary_ball_distance = 18.5
-camera_angle = 30
-camera_height = 15
+camera_angle = 50
+camera_height = 20
 
 ball_diameter = 0
 ball_distance = 0
@@ -72,8 +72,8 @@ while(True):
     else:
         angle = 0
 
-    ball_diameter = blob.h() // 10
-    ball_distance = (camera_height - ball_diameter) * math.degrees(math.atan(camera_angle))
+    ball_diameter = blob.h() / 10
+    ball_distance = (((camera_height - ball_diameter) * math.degrees(math.atan(camera_angle))) // 100) * 2.54
 
     printChanValues()
 
